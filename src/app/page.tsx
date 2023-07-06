@@ -1,5 +1,18 @@
+'use client'
 import Image from 'next/image'
 import styles from './page.module.css'
+import { io } from 'socket.io-client'
+import { useEffect } from 'react'
+const socket = io('https://full-hous-server.vercel.app')
+
+// useEffect(() => {
+
+//   return () => {
+//       // if (socket.readyState === 1) { // <-- This is important
+//           socket.close();
+//       // }
+//   }
+// })
 
 export default function Home() {
   return (
