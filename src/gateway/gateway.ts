@@ -3,7 +3,11 @@ import { WebSocketGateway, WebSocketServer, SubscribeMessage, MessageBody, OnGat
 import { Server } from "socket.io";
 
 
-@WebSocketGateway(1234, {})
+@WebSocketGateway({
+    cors:{
+        origin:true
+    }
+})
 export class Gateway implements OnModuleInit, OnGatewayDisconnect{
 
     @WebSocketServer()
@@ -15,9 +19,9 @@ export class Gateway implements OnModuleInit, OnGatewayDisconnect{
         })
     }
 
-    @SubscribeMessage('events')
-    handleEvent(@MessageBody() data: unknown) {
-        console.log( data );
+    @SubscribeMessage('test')
+    handleEvent() {
+        console.log( "test is worked!" );
     }
 
     handleDisconnect(socket){
