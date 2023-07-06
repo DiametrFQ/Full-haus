@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import { io } from 'socket.io-client'
 import { useEffect } from 'react'
-const socket = io('https://full-hous-server.vercel.app')
+const socket = io('https://test-whmf.onrender.com')
 
 // useEffect(() => {
 
