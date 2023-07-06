@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["/turbopack/[project]/middleware_config.js"],"sourcesContent":["export default {\"matcher\":null};"],"names":[],"mappings":";;;uCAAe;IAAC,WAAU;AAAI"}},
+    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

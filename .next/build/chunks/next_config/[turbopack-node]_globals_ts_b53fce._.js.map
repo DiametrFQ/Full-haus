@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["/turbopack/[turbopack-node]/globals.ts"],"sourcesContent":["// @ts-ignore\nprocess.turbopack = {};\n"],"names":[],"mappings":"AACA,QAAQ,SAAS,GAAG,CAAC"}},
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

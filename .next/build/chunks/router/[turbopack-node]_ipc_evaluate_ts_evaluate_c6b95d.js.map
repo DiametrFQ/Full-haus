@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["/turbopack/[turbopack-node]/ipc/evaluate.ts/evaluate.js"],"sourcesContent":["import { run } from 'RUNTIME'; run((...args) => (require('INNER').default(...args)))"],"names":[],"mappings":";;;AAA+B,6GAAI,CAAC,GAAG,OAAU,mMAAiB,OAAO,IAAI"}},
+    {"offset": {"line": 8, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
