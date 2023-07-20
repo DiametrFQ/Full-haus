@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { io } from 'socket.io-client'
+import { io } from 'socket.io-client';
 
-const socket = io("https://test-whmf.onrender.com")
+//const socket = io("https://test-whmf.onrender.com")
+const socket = io("http://localhost:3000");
 
 export default function App() {
   return (
