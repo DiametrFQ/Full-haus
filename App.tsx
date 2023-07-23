@@ -1,23 +1,49 @@
+import style from './App.style'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { StyleSheet, TextInput, Text, View, Button, Pressable } from 'react-native';
 import { io } from 'socket.io-client';
+import Chat from './src/chat/Chat';
 
-//const socket = io("https://test-whmf.onrender.com")
-const socket = io("http://localhost:3000");
+interface User{
+  name: string,
+  msg: string
+};
+
+const socket = io("https://test-whmf.onrender.com/")
+
+const myName = "Joe";
+const id = "y8apriDnAsE3HP02AAAB";
 
 export default function App() {
+  const socket = io("https://test-whmf.onrender.com/")
+  // const [connect, setConnect] = useState(false);
+
+  useEffect(()=> {
+    socket.on('connect', () => {
+      // setConnect(true)
+      // console.log('1' + socket.connected)
+      // console.log('2' + socket.connected)
+      // console.log('--------------------')
+    })
+  })
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <View style={style.container}>
+
+        <Text 
+          style={{
+            color: socket.connected
+            ? "green" 
+            : "red"
+          }}> 
+          {socket.connected? "Connect" : "Disconnect"}
+        </Text>
+
+      </View>
+
+      <Chat/>
+    </>
   );
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
