@@ -1,22 +1,32 @@
 import { OnModuleInit } from "@nestjs/common";
-import { WebSocketGateway, WebSocketServer, SubscribeMessage, MessageBody, OnGatewayDisconnect } from "@nestjs/websockets";
+import { WebSocketGateway, WebSocketServer, SubscribeMessage, MessageBody, OnGatewayDisconnect, OnGatewayConnection } from "@nestjs/websockets";
 import { Server } from "socket.io";
 
+interface Msg {
+    user: string;
+    userid: string;
+    msg: string;
+}
 
 @WebSocketGateway({
     cors:{
         origin:true
     }
 })
-export class Gateway implements OnModuleInit, OnGatewayDisconnect{
+export class Gateway implements OnGatewayConnection, OnGatewayDisconnect{
 
     @WebSocketServer()
     server: Server
 
-    onModuleInit() {
-        this.server.on('connect', (socket) => {
-            console.log("Hello", socket.id, "!")
-        })
+    msgs: Msg[] = []
+
+    handleConnection(socket){
+        console.log("Hello", socket.id, "!")
+        this.server.emit('store msgs', this.msgs)
+    }
+
+    handleDisconnect(socket){
+        console.log("Bye", socket.id, "!")
     }
 
     @SubscribeMessage('test')
@@ -24,7 +34,10 @@ export class Gateway implements OnModuleInit, OnGatewayDisconnect{
         console.log( "test is worked!" );
     }
 
-    handleDisconnect(socket){
-        console.log("Bye", socket.id, "!")
+    @SubscribeMessage('new message')
+    newMessageEvent(@MessageBody() msg: Msg) {
+
+        this.server.emit('new message', msg)
+        this.msgs.push(msg)
     }
 }
