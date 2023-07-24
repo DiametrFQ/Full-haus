@@ -2,40 +2,30 @@ import style from './Chat.style';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useRef } from 'react';
 import { TextInput, Text, ScrollView, Pressable } from 'react-native';
-import { Socket, io } from 'socket.io-client';
+import { Socket } from 'socket.io-client';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { addMsg, setStore } from '../store/reducers/socketSlice';
-
-interface User{
-  user: string,
-  msg: string
-};
+import { addMsg, setStore, connect } from '../store/reducers/socketSlice';
+import IMsgs from '../Interfaces/IMsgs';
 
 const myName = "Joe";
 const id = "y8apriDnAsE3HP02AAAB";
 
 export default function Chat() {
   const server = useSelector((state:any) => state)
-  const {socket, msgs} = server.socket
+  const {socket, msgs}:{socket: Socket, msgs: IMsgs[]} = server.socket
 
   const dispatch = useDispatch();
 
   // socket.on('new message', (data:User)=>{
   //   msgs.push(data);
   // })
-  socket.on('store msgs', (data: User)=>{
-    console.log('asd')
-    console.log(data)
-
-    dispatch(setStore(data)); 
+  socket.on('store msgs', (msgs: IMsgs[])=>{
+    dispatch(setStore(msgs)); 
   })
 
-  socket.on('new message', (data: User)=>{
-    console.log('asd')
-    console.log(data)
-
-    dispatch(addMsg(data)); 
+  socket.on('new message', (msg: IMsgs)=>{
+    dispatch(setStore([...msgs, msg])); 
   })
   socket.on('connect', () => {
     console.log('1' + socket.connected)
@@ -43,16 +33,6 @@ export default function Chat() {
   })
 
   const [msg, setMsg] = useState('');
-  const [users, onChangeUsers] = useState<User[]>([
-    {
-      user: "alf",
-      msg: "Hi"
-    },
-    {
-      user: "fghk",
-      msg: "Heeeellloooo!!"
-    },
-  ]);
 
   const sayMsg = () => {
 
@@ -60,18 +40,14 @@ export default function Chat() {
       return
     };
 
-    const newMsg: User = {
+    const newMsg: IMsgs = {
       user: myName,
       msg: msg
     };
 
     //socket.emit("newMessage", newMsg);
+    socket.emit('new message', newMsg)
 
-    onChangeUsers( [
-      ...users, 
-      newMsg
-    ]);
-    
     setMsg('')
   }
 
@@ -94,16 +70,10 @@ export default function Chat() {
   const msgRender = () => {
     return msgs.map(( user, index ) => {
       return (
-        <Text key={user.user + index + '1'}>
+        <Text key={user.user + id + index}>
           {user.user} 
           {"\n"} {user.msg}
           {"\n"} -----------------------
-          {/* 
-          {socket.on("connect", () => {
-            socket.on("data", () => { });
-          })};  
-          */
-          }
         </Text>
       );
     });

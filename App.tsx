@@ -6,23 +6,17 @@ import { io } from 'socket.io-client';
 import store from './src/store'; // Import the store you created
 import Chat from './src/Chat';
 import style from './App.style'
-import YourComponent from './src/TestRN/YourComponent';
 
-interface User{
-  name: string,
-  msg: string
-};
+// const socket = io("https://test-whmf.onrender.com/")
+// socket.on('get user id', ()=>{
 
-const socket = io("https://test-whmf.onrender.com/")
-socket.on('get user id', ()=>{
-
-})
-socket.on('new message', ()=>{
+// })
+// socket.on('new message', ()=>{
   
-})
-socket.on('store msgs', ()=>{
+// })
+// socket.on('store msgs', ()=>{
   
-})
+// })
 const myName = "Joe";
 const id = "y8apriDnAsE3HP02AAAB";
 
@@ -45,15 +39,15 @@ export default function App() {
 
         <Text 
           style={{
-            color: socket.connected
+            backgroundColor: socket.connected
             ? "green" 
-            : "red"
+            : "red",
+            color: "black"
           }}> 
           {socket.connected? "Connect" : "Disconnect"}
         </Text>
 
       </View>
-      {/* <YourComponent/> */}
       <Chat/>
     </Provider>
   );
