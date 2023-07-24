@@ -36,7 +36,6 @@ export class Gateway implements OnGatewayConnection, OnGatewayDisconnect{
 
     @SubscribeMessage('new message')
     newMessageEvent(@MessageBody() msg: Msg) {
-
         this.server.emit('new message', msg)
         this.msgs.push(msg)
     }
