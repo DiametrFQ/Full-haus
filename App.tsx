@@ -1,9 +1,12 @@
-import style from './App.style'
 import { StatusBar } from 'expo-status-bar';
+import { Provider } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { StyleSheet, TextInput, Text, View, Button, Pressable } from 'react-native';
+import { Text, View } from 'react-native';
 import { io } from 'socket.io-client';
-import Chat from './src/chat/Chat';
+import store from './src/store'; // Import the store you created
+import Chat from './src/Chat';
+import style from './App.style'
+import YourComponent from './src/TestRN/YourComponent';
 
 interface User{
   name: string,
@@ -11,7 +14,15 @@ interface User{
 };
 
 const socket = io("https://test-whmf.onrender.com/")
+socket.on('get user id', ()=>{
 
+})
+socket.on('new message', ()=>{
+  
+})
+socket.on('store msgs', ()=>{
+  
+})
 const myName = "Joe";
 const id = "y8apriDnAsE3HP02AAAB";
 
@@ -29,7 +40,7 @@ export default function App() {
   })
 
   return (
-    <>
+    <Provider store={store}>
       <View style={style.container}>
 
         <Text 
@@ -42,8 +53,8 @@ export default function App() {
         </Text>
 
       </View>
-
+      {/* <YourComponent/> */}
       <Chat/>
-    </>
+    </Provider>
   );
 };

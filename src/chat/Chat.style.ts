@@ -11,7 +11,7 @@ const dowm2 = (side: string) => {
     }
 }
 
-const styles = StyleSheet.create({
+const ChatStyles = StyleSheet.create({
     container: {
         // flex: 1,
         backgroundColor: 'red',
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default styles
+export default ChatStyles

@@ -2,27 +2,54 @@ import style from './Chat.style';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useRef } from 'react';
 import { TextInput, Text, ScrollView, Pressable } from 'react-native';
-import { io } from 'socket.io-client';
+import { Socket, io } from 'socket.io-client';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { addMsg, setStore } from '../store/reducers/socketSlice';
 
 interface User{
-  name: string,
+  user: string,
   msg: string
 };
-
-const socket = io("https://test-whmf.onrender.com/")
 
 const myName = "Joe";
 const id = "y8apriDnAsE3HP02AAAB";
 
 export default function Chat() {
+  const server = useSelector((state:any) => state)
+  const {socket, msgs} = server.socket
+
+  const dispatch = useDispatch();
+
+  // socket.on('new message', (data:User)=>{
+  //   msgs.push(data);
+  // })
+  socket.on('store msgs', (data: User)=>{
+    console.log('asd')
+    console.log(data)
+
+    dispatch(setStore(data)); 
+  })
+
+  socket.on('new message', (data: User)=>{
+    console.log('asd')
+    console.log(data)
+
+    dispatch(addMsg(data)); 
+  })
+  socket.on('connect', () => {
+    console.log('1' + socket.connected)
+    console.log('2' + socket.connected)
+  })
+
   const [msg, setMsg] = useState('');
   const [users, onChangeUsers] = useState<User[]>([
     {
-      name: "alf",
+      user: "alf",
       msg: "Hi"
     },
     {
-      name: "fghk",
+      user: "fghk",
       msg: "Heeeellloooo!!"
     },
   ]);
@@ -34,11 +61,11 @@ export default function Chat() {
     };
 
     const newMsg: User = {
-      name: myName,
+      user: myName,
       msg: msg
     };
 
-    socket.emit("newMessage", newMsg);
+    //socket.emit("newMessage", newMsg);
 
     onChangeUsers( [
       ...users, 
@@ -65,10 +92,10 @@ export default function Chat() {
 //     });
 //   }
   const msgRender = () => {
-    return users.map(( user, index ) => {
+    return msgs.map(( user, index ) => {
       return (
-        <Text key={user.name + index + '1'}>
-          {user.name} 
+        <Text key={user.user + index + '1'}>
+          {user.user} 
           {"\n"} {user.msg}
           {"\n"} -----------------------
           {/* 
@@ -76,7 +103,6 @@ export default function Chat() {
             socket.on("data", () => { });
           })};  
           */
-          
           }
         </Text>
       );
