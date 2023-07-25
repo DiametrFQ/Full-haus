@@ -9,7 +9,6 @@ import { addMsg, setStore, connect } from '../store/reducers/socketSlice';
 import IMsgs from '../Interfaces/IMsgs';
 
 const myName = "Joe";
-const id = "y8apriDnAsE3HP02AAAB";
 
 export default function Chat() {
   const server = useSelector((state:any) => state)
@@ -70,7 +69,7 @@ export default function Chat() {
   const msgRender = () => {
     return msgs.map(( user, index ) => {
       return (
-        <Text key={user.user + id + index}>
+        <Text key={user.user + myName + index}>
           {user.user} 
           {"\n"} {user.msg}
           {"\n"} -----------------------
