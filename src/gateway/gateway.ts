@@ -8,11 +8,7 @@ interface Msg {
     msg: string;
 }
 
-@WebSocketGateway({
-    cors:{
-        origin:true
-    }
-})
+@WebSocketGateway()
 export class Gateway implements OnGatewayConnection, OnGatewayDisconnect{
 
     @WebSocketServer()
