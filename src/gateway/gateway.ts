@@ -30,6 +30,11 @@ export class Gateway implements OnGatewayConnection, OnGatewayDisconnect{
         console.log( "test is worked!" );
     }
 
+    @SubscribeMessage('get store msgs')
+    getStoreMsgsEvent(@MessageBody() id: string) {
+        this.server.emit(`take store msgs ${id}`, this.msgs)
+    }
+
     @SubscribeMessage('new message')
     newMessageEvent(@MessageBody() msg: Msg) {
         this.server.emit('new message', msg)
