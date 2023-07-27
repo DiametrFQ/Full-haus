@@ -1,4 +1,4 @@
-import style from './style';
+// import MessageStyles from './style';
 import { Text, ScrollView } from 'react-native';
 import IMsgs from '../../../Interfaces/IMsgs';
 import { useSelector } from 'react-redux';
@@ -38,7 +38,6 @@ export default function Message({user}:{user: IMsgs}) {
             <Text
                 style={{
                     display:'flex',
-                    backgroundColor:'red',
                 }}
             >
                 {name === user.user ? 'Я': user.user}{'\n'}

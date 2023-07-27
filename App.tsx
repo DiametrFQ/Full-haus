@@ -2,16 +2,16 @@
 import { Text, View } from 'react-native';
 import { Socket, io } from 'socket.io-client';
 import store from './src/store'; // Import the store you created
-import Chat from './src/Chat';
-import { setStore } from './src/store/reducers/msgSlice';
+import Chat from './src/chat';
+import { setStore, addMsg } from './src/store/reducers/msgSlice';
 import IMsgs from './src/Interfaces/IMsgs';
 import {Provider, useSelector, useDispatch } from 'react-redux';
 import styles from './App.style';
 import { NativeRouter, Routes,Route } from "react-router-native";
 import Login from './src/Login';
+import { useEffect, useMemo } from 'react';
 
 // const myName = "Joe";
-const id = "y8apriDnAsE3HP02AAAB";
 
 export default function AppWrapper() {
   return (
@@ -36,7 +36,8 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  socket.on(`get store ${socket.id}`, (msgs: IMsgs[])=>{
+  socket.on(`take store msgs ${socket.id}`, (msgs: IMsgs[])=>{
+
     dispatch(setStore(msgs)); 
   })
 
@@ -48,11 +49,15 @@ const App = () => {
     if(name === msg.user){
       return
     }
-    dispatch(setStore([...msgs, msg])); 
+    dispatch(addMsg( msg )); 
   })
-  socket.connect()
 
-  console.log(socket.id)
+
+  useEffect(()=>{
+    socket.emit('get store msgs', socket.id), console.log('asf')
+  },[name])
+
+  // console.log(socket.id)
 
   return (
     <>

@@ -1,7 +1,7 @@
 import style from './style';
 import { useState } from 'react';
 import { TextInput, Pressable, View } from 'react-native';
-import { Socket, io } from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import IMsgs from '../Interfaces/IMsgs';
 import { setStore } from '../store/reducers/msgSlice';
