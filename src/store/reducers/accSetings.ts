@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IMsgs from '../../Interfaces/IMsgs';
 
 const accSlice = createSlice({
@@ -9,7 +9,10 @@ const accSlice = createSlice({
   },
 
   reducers: {
-    setUserName: (store, action) => {
+    setUserName: (
+      store, 
+      action: PayloadAction<string>
+    ) => {
       store.name = action.payload
     },
   },

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IMsgs from '../../Interfaces/IMsgs';
 
 const msgSlice = createSlice({
@@ -8,9 +8,12 @@ const msgSlice = createSlice({
   },
   reducers: {
     addMsg: (store, action)=>{
-      store.msgs.push(action.payload)
+      store.msgs.push(action.payload as IMsgs)
     },
-    setStore:(store, action) => {
+    setStore:(
+      store, 
+      action: PayloadAction<IMsgs[]>
+    ) => {
       store.msgs = action.payload
     },
   },

@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
+    flex:{
+        flex:1,
+        backgroundColor: 'black',
+    },
     container: {
         backgroundColor: '#2c3563',
         alignItems: 'center',
@@ -14,7 +18,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black'
     },
     otherArea:{
-        height: '95.5%'//Dimensions.get('window').height,
+        height: '100%'//Dimensions.get('window').height,
     }
 
 });

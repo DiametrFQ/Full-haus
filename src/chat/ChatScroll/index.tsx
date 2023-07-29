@@ -6,7 +6,6 @@ import Message from './Message';
 
 export default function ChatScroll() {
   const {msgs}:{msgs: IMsgs[]} = useSelector((state:any) => state).msg
-
   return (
     <ScrollView 
       style={{

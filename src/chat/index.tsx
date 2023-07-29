@@ -35,6 +35,7 @@ export default function Chat() {
 
     setMsg('')
   }
+  console.log('a',msgs.length)
 
   return (
     <>

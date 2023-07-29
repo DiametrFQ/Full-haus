@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 export default function Message({user}:{user: IMsgs}) {
 
-    const server = useSelector((state:any) => state);
-    const { name }:{ name: string } = server.acc;
+    const server = useSelector((state:{acc: {name: string}}) => state);
+    const { name } = server.acc;
 
     let marginSide = '';
     let backgroundColor = '';

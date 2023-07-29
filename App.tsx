@@ -1,19 +1,28 @@
 //@react-native-async-storage/async-storage
-import { Text, View } from 'react-native';
-import { Socket, io } from 'socket.io-client';
+import { Appearance, Text, View } from 'react-native';
+import { io } from 'socket.io-client';
 import store from './src/store'; // Import the store you created
 import Chat from './src/chat';
-import { setStore, addMsg } from './src/store/reducers/msgSlice';
+import { setStore } from './src/store/reducers/msgSlice';
 import IMsgs from './src/Interfaces/IMsgs';
 import {Provider, useSelector, useDispatch } from 'react-redux';
 import styles from './App.style';
 import { NativeRouter, Routes,Route } from "react-router-native";
 import Login from './src/Login';
-import { useEffect, useMemo } from 'react';
-
-// const myName = "Joe";
+import { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AppWrapper() {
+  // const [theme, setTheme] = useState(Appearance.getColorScheme());
+  // Appearance.addChangeListener((scheme)=>{
+  //   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  //   // setTheme
+  //   scheme.colorScheme = 'dark'
+  //   console.log(scheme.colorScheme)
+
+  //   // setTheme()
+  // })
+  // console.log(Appearance.getColorScheme())
   return (
     <Provider store={store}>
         <NativeRouter>
@@ -49,7 +58,7 @@ const App = () => {
     if(name === msg.user){
       return
     }
-    dispatch(addMsg( msg )); 
+    dispatch(setStore([...msgs,  msg])); 
   })
 
 
@@ -60,8 +69,7 @@ const App = () => {
   // console.log(socket.id)
 
   return (
-    <>
-      <View style={ styles.safeArea } />
+    <SafeAreaView style={styles.flex}>
       <View style={ styles.otherArea }>
 
         <Text 
@@ -78,6 +86,6 @@ const App = () => {
 
         <Chat />
       </View>
-    </>
+    </SafeAreaView>
   );
 };
