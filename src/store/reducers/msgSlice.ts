@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import IMsgs from '../../Interfaces/IMsgs';
+import store from '..';
 
 const msgSlice = createSlice({
   name: 'msg',
@@ -20,5 +21,6 @@ const msgSlice = createSlice({
   
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export const { addMsg, setStore } = msgSlice.actions;
 export default msgSlice.reducer;

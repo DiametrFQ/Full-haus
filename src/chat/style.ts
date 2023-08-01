@@ -25,7 +25,14 @@ const ChatStyles = StyleSheet.create({
         backgroundColor: "#2c517a",
         // color: '#426287',
         __proto__: dowm('left'),
-    }
+    },
+    flex:{
+        flex:1,
+        // backgroundColor: 'black',
+    },
+    otherArea:{
+        height: '100%'//Dimensions.get('window').height,
+    },
 });
 
 export default ChatStyles

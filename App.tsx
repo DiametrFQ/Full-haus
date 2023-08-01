@@ -1,18 +1,26 @@
 //@react-native-async-storage/async-storage
-import { Appearance, Text, View } from 'react-native';
 import { io } from 'socket.io-client';
 import store from './src/store'; // Import the store you created
 import Chat from './src/chat';
-import { setStore } from './src/store/reducers/msgSlice';
-import IMsgs from './src/Interfaces/IMsgs';
-import {Provider, useSelector, useDispatch } from 'react-redux';
-import styles from './App.style';
-import { NativeRouter, Routes,Route } from "react-router-native";
 import Login from './src/Login';
-import { useEffect, useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import registerForPushNotificationsAsync from './src/PushNotification/registerForPushNotificationsAsync';
+import { useState, useRef, useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { AppState, Text } from 'react-native';
+import { NativeRouter, Routes,Route } from "react-router-native";
+import SocketConnect from './src/socket-client/socket';
+import { useDispatch } from 'react-redux';
+import { setStatus } from './src/store/reducers/appSlice';
+
+
+const socket = io("https://test-whmf.onrender.com/",
+  {
+    autoConnect: true,
+  }
+);
 
 export default function AppWrapper() {
+  const [expoPushToken, setExpoPushToken] = useState('');
   // const [theme, setTheme] = useState(Appearance.getColorScheme());
   // Appearance.addChangeListener((scheme)=>{
   //   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -23,69 +31,47 @@ export default function AppWrapper() {
   //   // setTheme()
   // })
   // console.log(Appearance.getColorScheme())
+  async () => {
+    while(socket.disconnected){
+      await socket.connect()
+    }
+  }
+
+  registerForPushNotificationsAsync().then(token => setExpoPushToken(token!));
+    
   return (
     <Provider store={store}>
-        <NativeRouter>
-          <Routes>
-            <Route path='/' element={<Login/>}/>
-            <Route path='/origin' element={<App/>}/>
-          </Routes>
-        </NativeRouter>
+      <Socket/>
+      <NativeRouter>
+        <Routes>
+          <Route path='/' element={<Login/>}/>
+          <Route path='/origin' element={<Chat/>}/>
+        </Routes>
+      </NativeRouter>
     </Provider>
   );
 };
 
-const socket = io("https://test-whmf.onrender.com/");
+const Socket = () => {
+  SocketConnect(socket);
 
-const App = () => {
+  const appState = useRef(AppState.currentState);
+  const dispatch = useDispatch()
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
-  const server = useSelector((state:any) => state);
-  const {msgs}:{ msgs: IMsgs[]} = server.msg;
-  const {name}:{ name: string} = server.acc;
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
 
-  const dispatch = useDispatch();
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+      // console.log('status2',appState.current)
+      dispatch(setStatus(appState.current));
+    });
 
-  socket.on(`take store msgs ${socket.id}`, (msgs: IMsgs[])=>{
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
-    dispatch(setStore(msgs)); 
-  })
-
-  socket.on('store msgs', (msgs: IMsgs[])=>{
-    dispatch(setStore(msgs)); 
-  })
-
-  socket.on('new message', (msg: IMsgs) => {
-    if(name === msg.user){
-      return
-    }
-    dispatch(setStore([...msgs,  msg])); 
-  })
-
-
-  useEffect(()=>{
-    socket.emit('get store msgs', socket.id), console.log('asf')
-  },[name])
-
-  // console.log(socket.id)
-
-  return (
-    <SafeAreaView style={styles.flex}>
-      <View style={ styles.otherArea }>
-
-        <Text 
-          style={{
-            backgroundColor: socket.connected
-            ? "green" : "red",
-
-            color: "black",
-            textAlign: "center"
-          }}
-        > 
-          {socket.connected? "Connect" : "Disconnect"}
-        </Text>
-
-        <Chat />
-      </View>
-    </SafeAreaView>
-  );
+  return (<Text style={{width:0, height:0}}> </Text>);
 };

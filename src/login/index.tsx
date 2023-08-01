@@ -22,7 +22,6 @@ export default function Login() {
         };
 
         dispatch(setUserName(name));
-
         navigate('/origin');
     };
 

@@ -3,9 +3,12 @@ import { Text, ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import IMsgs from '../../Interfaces/IMsgs';
 import Message from './Message';
+import { RootState } from '../../store/reducers/msgSlice';
 
 export default function ChatScroll() {
-  const {msgs}:{msgs: IMsgs[]} = useSelector((state:any) => state).msg
+
+  const msgs = useSelector((state:RootState) => state.msg.msgs);
+
   return (
     <ScrollView 
       style={{
@@ -18,7 +21,7 @@ export default function ChatScroll() {
         <Message
           /// Подумать о ключах
           // может время отпрвки сообщения отправлять на серв
-          // и от туда брать уже брать
+          // и от туда уже брать
 
           key={user.user + index}
           user={user} 

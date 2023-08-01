@@ -1,23 +1,30 @@
 import style from './style';
 import { useState } from 'react';
-import { TextInput, Pressable, View } from 'react-native';
+import { TextInput, Pressable, View, Text } from 'react-native';
 import { io } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import IMsgs from '../Interfaces/IMsgs';
-import { setStore } from '../store/reducers/msgSlice';
+import { RootState, addMsg } from '../store/reducers/msgSlice';
 import ChatScroll from './ChatScroll';
+import { SafeAreaView } from 'react-native-safe-area-context';
+// import { useEffect } from 'react'
 
-
-const socket = io("https://test-whmf.onrender.com/")
+const socket = io(
+  "https://test-whmf.onrender.com/",
+  {
+    autoConnect: true
+  }
+);
 
 export default function Chat() {
 
   const [msg, setMsg] = useState('');
-  const dispatch = useDispatch()
-  const server = useSelector((state:any) => state)
-  const { msgs } : { msgs: IMsgs[] } = server.msg
-  const { name } : { name: string } = server.acc
+  const dispatch = useDispatch();
+  // const msgs = useSelector((state:RootState) => state.msg.msgs);
+  const name = useSelector((state:RootState) => state.acc.name);
+  const connect = useSelector((state:RootState) => state.app.connect);
 
+  // socket.connect()
 
   const sayMsg = () => {
 
@@ -30,33 +37,47 @@ export default function Chat() {
       msg: msg
     };
 
-    dispatch(setStore([...msgs, newMsg])); 
-    socket.emit('new message', newMsg)
+    dispatch(addMsg(newMsg)); 
 
-    setMsg('')
+    socket.emit('new message', newMsg);
+
+    setMsg('');
   }
-  console.log('a',msgs.length)
 
   return (
-    <>
-      <ChatScroll />
-      
-      <View style={{
-        height: 50,
-        position: 'relative'
-      }}>
-        <TextInput 
-          onChangeText={setMsg}
-          value={msg}
-          placeholder=" Send Message"
-          style={style.inputText}
-        />
+    <SafeAreaView style={style.flex}>
+      <View style={ style.otherArea }>
+        <Text 
+          style={{
+            backgroundColor: connect
+            ? "green" : "red",
 
-        <Pressable 
-          style={style.pressable}
-          onPress={sayMsg}>
-        </Pressable>
+            color: "black",
+            textAlign: "center"
+          }}
+        > 
+          {connect? "Connect" : "Disconnect"}
+        </Text>
+
+            <ChatScroll />
+            
+            <View style={{
+              height: 50,
+              position: 'relative'
+            }}>
+              <TextInput 
+                onChangeText={setMsg}
+                value={msg}
+                placeholder=" Send Message"
+                style={style.inputText}
+              />
+
+              <Pressable 
+                style={style.pressable}
+                onPress={sayMsg}>
+              </Pressable>
+            </View>
       </View>
-    </>
+    </SafeAreaView>
   );
 };

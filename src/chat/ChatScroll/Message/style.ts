@@ -10,7 +10,7 @@ const MessageStyles = StyleSheet.create({
         position: 'relative',
         // bottom: 20,
         width: '90%',
-        height: 90
+        height: 90,
     },
 });
 

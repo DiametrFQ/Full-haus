@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import IMsgs from '../../Interfaces/IMsgs';
+import store from '..';
 
 const accSlice = createSlice({
   name: 'acc',
@@ -19,5 +19,6 @@ const accSlice = createSlice({
   
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 export const { setUserName } = accSlice.actions;
 export default accSlice.reducer;
