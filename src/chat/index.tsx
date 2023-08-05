@@ -1,12 +1,12 @@
 import style from './style';
 import { useState } from 'react';
-import { TextInput, Pressable, View, Text } from 'react-native';
+import { TextInput, Pressable, View, Text, SafeAreaView } from 'react-native';
 import { io } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import IMsgs from '../Interfaces/IMsgs';
 import { RootState, addMsg } from '../store/reducers/msgSlice';
 import ChatScroll from './ChatScroll';
-import { SafeAreaView } from 'react-native-safe-area-context';
+// import { SafeAreaView } from 'react-native-safe-area-context';
 // import { useEffect } from 'react'
 
 const socket = io(

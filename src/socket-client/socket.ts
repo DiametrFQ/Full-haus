@@ -2,80 +2,95 @@ import { Socket } from "socket.io-client";
 import { RootState, addMsg, setStore } from "../store/reducers/msgSlice";
 import { useDispatch, useSelector } from "react-redux";
 import IMsgs from "../Interfaces/IMsgs";
-import * as Notifications from "expo-notifications"
+import PushNotification from "react-native-push-notification";
 import { setConnect } from "../store/reducers/appSlice";
 
-const SocketConnect = (socket: Socket) => {
-  const name = useSelector((state:RootState) => state.acc.name);
-  const appStatus = useSelector((state:RootState) => state.app.status);
-  // const connect = useSelector((state:RootState) => state.app.connect)
+// const SocketConnect = (socket: Socket) => {
+//   const name = useSelector((state:RootState) => state.acc.name);
+//   const appStatus = useSelector((state:RootState) => state.app.status);
+//   // const connect = useSelector((state:RootState) => state.app.connect)
 
-  const dispatch = useDispatch();
-  
-  socket.off(`connect`);
-  socket.on('connect', async () => {
-    dispatch(setConnect(socket.connected));
-  })
+//   const dispatch = useDispatch();
 
-  socket.off(`take store msgs ${socket.id}`);
-  socket.on(`take store msgs ${socket.id}`, async(msgs: IMsgs[])=>{
-    dispatch(setStore(msgs)); 
-  });
+//   socket.off(`connect`);
+//   socket.on('connect', async () => {
+//     dispatch(setConnect(socket.connected));
+//   })
 
-  socket.off('store msgs');
-  socket.on('store msgs', async (msgs: IMsgs[])=>{
-    dispatch(setStore(msgs)); 
-  });
+//   socket.off(`take store msgs ${socket.id}`);
+//   socket.on(`take store msgs ${socket.id}`, async(msgs: IMsgs[])=>{
+//     dispatch(setStore(msgs)); 
+//   });
 
-  socket.off('new message');
-  socket.on('new message', async (msg: IMsgs) => {
+//   socket.off('store msgs');
+//   socket.on('store msgs', async (msgs: IMsgs[])=>{
+//     dispatch(setStore(msgs)); 
+//   });
 
-    if(name === msg.user){
-      return;
-    }
-    console.log('its work?')
-    console.log('status', appStatus)
+//   socket.off('new message');
+//   socket.on('new message', async (msg: IMsgs) => {
 
-    if(appStatus === "background"){
-        console.log('its work!')
-        await newMessagePN(
-            msg.user,
-            msg.msg,
-        );
-    }
+//     if(name === msg.user){
+//       return;
+//     }
+//     console.log('its work?')
+//     console.log('status', appStatus)
 
-    dispatch(addMsg(msg));
+//     if(appStatus === "background"){
+//         console.log('its work!');
 
-    // socket.on("disconnect", () => {
-    //     socket.connect()
-    // });
-  })
-//   while(!socket.connected){
-//     socket.connect();
-//   }
-};
+//         // PushNotification.createChannel(
+//         //   {
+//         //     channelId: '1', //?
+//         //     channelName: 'name'
+//         //   },
+//         //   (created) => console.log(`createChannel returned '${created}'`)  
+//         // )
 
-async function newMessagePN(
-    name: string,
-    massage: string,
-) {
-    await Notifications.scheduleNotificationAsync({
-        content: {
-            title: name,
-            body: massage,
-            data: { data: 'goes here' },
-        },
-        trigger: { seconds: 1 },
+//         // PushNotification.localNotification({
+//         //   title: msg.user,
+//         //   message: msg.msg,
+//         //   channelId: '1',
+//         // })
+//         // await newMessagePN(
+//         //     msg.user,
+//         //     msg.msg,
+//         // );
+//     }
+
+//     dispatch(addMsg(msg));
+
+//     socket.on("disconnect", () => {
+//       console.log("disconnect");
+//       dispatch(setConnect(socket.connected));
+//     });
+//   })
+// //   while(!socket.connected){
+// //     socket.connect();
+// //   }
+// };
+
+// // async function newMessagePN(
+// //     name: string,
+// //     massage: string,
+// // ) {
+// //     await Notifications.scheduleNotificationAsync({
+// //         content: {
+// //             title: name,
+// //             body: massage,
+// //             data: { data: 'goes here' },
+// //         },
+// //         trigger: { seconds: 1 },
         
-    });
-}
+// //     });
+// // }
 
-Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-        shouldShowAlert: true,
-        shouldPlaySound: false,
-        shouldSetBadge: false,
-    }),
-});
+// // Notifications.setNotificationHandler({
+// //     handleNotification: async () => ({
+// //         shouldShowAlert: true,
+// //         shouldPlaySound: false,
+// //         shouldSetBadge: false,
+// //     }),
+// // });
 
-export default SocketConnect
+// export default SocketConnect

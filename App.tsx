@@ -3,12 +3,11 @@ import { io } from 'socket.io-client';
 import store from './src/store'; // Import the store you created
 import Chat from './src/chat';
 import Login from './src/Login';
-import registerForPushNotificationsAsync from './src/PushNotification/registerForPushNotificationsAsync';
 import { useState, useRef, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { AppState, Text } from 'react-native';
 import { NativeRouter, Routes,Route } from "react-router-native";
-import SocketConnect from './src/socket-client/socket';
+// import SocketConnect from './src/socket-client/socket';
 import { useDispatch } from 'react-redux';
 import { setStatus } from './src/store/reducers/appSlice';
 
@@ -36,8 +35,6 @@ export default function AppWrapper() {
       await socket.connect()
     }
   }
-
-  registerForPushNotificationsAsync().then(token => setExpoPushToken(token!));
     
   return (
     <Provider store={store}>
@@ -53,7 +50,7 @@ export default function AppWrapper() {
 };
 
 const Socket = () => {
-  SocketConnect(socket);
+  // SocketConnect(socket);
 
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch()

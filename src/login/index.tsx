@@ -3,7 +3,7 @@ import { Pressable, Text, TextInput, View } from 'react-native';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-native";
-import { useFonts } from 'expo-font';
+// import { useFonts } from 'expo-font';
 import styles from './style';
 import { setUserName } from '../store/reducers/accSetings';
 
