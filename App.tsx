@@ -5,7 +5,7 @@ import Chat from './src/chat';
 import Login from './src/Login';
 import { useState, useRef, useEffect } from 'react';
 import { Provider } from 'react-redux';
-import { AppState, Text } from 'react-native';
+import { AppState, Text, Platform, PermissionsAndroid } from 'react-native';
 import { NativeRouter, Routes,Route } from "react-router-native";
 import SocketConnect from './src/socket-client/socket';
 import { useDispatch } from 'react-redux';
@@ -30,11 +30,28 @@ export default function AppWrapper() {
   //   // setTheme()
   // })
   // console.log(Appearance.getColorScheme())
-  async () => {
-    while(socket.disconnected){
-      await socket.connect()
-    }
-  }
+  // async () => {
+  //   while(socket.disconnected){
+  //     await socket.connect()
+  //   }
+  // }
+  console.log('asd 1')
+  useEffect(() => {
+    console.log('asd 2');
+    (async () => {
+      if (Platform.OS === 'android') {
+        console.log('asd 3')
+        try {
+          console.log('asd 4')
+          await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+          );
+        } catch (error) {
+          console.log('asd err' + error)
+        }
+      }})()
+
+  }, []);
     
   return (
     <Provider store={store}>

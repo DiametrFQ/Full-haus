@@ -39,23 +39,25 @@ const SocketConnect = (socket: Socket) => {
     if(appStatus === "background"){
         console.log('its work!');
 
-        // PushNotification.createChannel(
-        //   {
-        //     channelId: '1', //?
-        //     channelName: 'name'
-        //   },
-        //   (created) => console.log(`createChannel returned '${created}'`)  
-        // )
+        PushNotification.createChannel( 
+            { 
+                channelId: 'newMessage', 
+                channelName: 'NewMessage', 
+                channelDescription: 'Notification for special message', 
+                importance: 4, 
+                vibrate: true, 
+            }, 
+            (created) => console.log('createChannel returned', `${created}`) 
+        );
 
-        // PushNotification.localNotification({
-        //   title: msg.user,
-        //   message: msg.msg,
-        //   channelId: '1',
-        // })
-        // await newMessagePN(
-        //     msg.user,
-        //     msg.msg,
-        // );
+        PushNotification.localNotification(
+            { 
+                channelId: 'newMessage', 
+                vibrate: true, 
+                allowWhileIdle: true, 
+                title: msg.user,
+                message: msg.msg, 
+            });
     }
 
     dispatch(addMsg(msg));
