@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { AppState, Text } from 'react-native';
 import { NativeRouter, Routes,Route } from "react-router-native";
-// import SocketConnect from './src/socket-client/socket';
+import SocketConnect from './src/socket-client/socket';
 import { useDispatch } from 'react-redux';
 import { setStatus } from './src/store/reducers/appSlice';
 
@@ -50,7 +50,7 @@ export default function AppWrapper() {
 };
 
 const Socket = () => {
-  // SocketConnect(socket);
+  SocketConnect(socket);
 
   const appState = useRef(AppState.currentState);
   const dispatch = useDispatch()
