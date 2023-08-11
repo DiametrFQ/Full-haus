@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import store from '..';
 
 const msgSlice = createSlice({
@@ -8,24 +8,16 @@ const msgSlice = createSlice({
     connect: false,
   },
   reducers: {
-
-    setStatus:(
-      store, 
-      action: PayloadAction<string>
-    ) => {
+    setStatus: (store, action: PayloadAction<string>) => {
       store.status = action.payload;
     },
 
-    setConnect:(
-      store, 
-      action: PayloadAction<boolean>
-    ) => {
+    setConnect: (store, action: PayloadAction<boolean>) => {
       store.connect = action.payload;
     },
   },
-  
 });
 
 export type RootState = ReturnType<typeof store.getState>;
-export const { setStatus, setConnect } = msgSlice.actions;
+export const {setStatus, setConnect} = msgSlice.actions;
 export default msgSlice.reducer;

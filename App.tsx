@@ -1,22 +1,19 @@
 //@react-native-async-storage/async-storage
-import { io } from 'socket.io-client';
+import {io} from 'socket.io-client';
 import store from './src/store'; // Import the store you created
 import Chat from './src/chat';
-import Login from './src/Login';
-import { useState, useRef, useEffect } from 'react';
-import { Provider } from 'react-redux';
-import { AppState, Text, Platform, PermissionsAndroid } from 'react-native';
-import { NativeRouter, Routes,Route } from "react-router-native";
+import Login from './src/login';
+import {useState, useRef, useEffect} from 'react';
+import {Provider} from 'react-redux';
+import {AppState, Text, Platform, PermissionsAndroid} from 'react-native';
+import {NativeRouter, Routes, Route} from 'react-router-native';
 import SocketConnect from './src/socket-client/socket';
-import { useDispatch } from 'react-redux';
-import { setStatus } from './src/store/reducers/appSlice';
+import {useDispatch} from 'react-redux';
+import {setStatus} from './src/store/reducers/appSlice';
 
-
-const socket = io("https://test-whmf.onrender.com/",
-  {
-    autoConnect: true,
-  }
-);
+const socket = io('https://test-whmf.onrender.com/', {
+  autoConnect: true,
+});
 
 export default function AppWrapper() {
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -35,47 +32,42 @@ export default function AppWrapper() {
   //     await socket.connect()
   //   }
   // }
-  console.log('asd 1')
   useEffect(() => {
-    console.log('asd 2');
     (async () => {
       if (Platform.OS === 'android') {
-        console.log('asd 3')
         try {
-          console.log('asd 4')
           await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
           );
         } catch (error) {
-          console.log('asd err' + error)
+          //console.log('asd err' + error);
         }
-      }})()
-
+      }
+    })();
   }, []);
-    
+
   return (
     <Provider store={store}>
-      <Socket/>
+      <Socket />
       <NativeRouter>
         <Routes>
-          <Route path='/' element={<Login/>}/>
-          <Route path='/origin' element={<Chat/>}/>
+          <Route path="/" element={<Login />} />
+          <Route path="/origin" element={<Chat />} />
         </Routes>
       </NativeRouter>
     </Provider>
   );
-};
+}
 
 const Socket = () => {
   SocketConnect(socket);
 
   const appState = useRef(AppState.currentState);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', nextAppState => {
-
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
       // console.log('status2',appState.current)
@@ -87,5 +79,5 @@ const Socket = () => {
     };
   }, []);
 
-  return (<Text style={{width:0, height:0}}> </Text>);
+  return <Text style={{width: 0, height: 0}}> </Text>;
 };
