@@ -33,7 +33,7 @@ export default function AppWrapper() {
   //   }
   // }
   useEffect(() => {
-    (async () => {
+    (async () => { 
       if (Platform.OS === 'android') {
         try {
           await PermissionsAndroid.request(
