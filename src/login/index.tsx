@@ -15,7 +15,8 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const AnimValue = useRef(new Animated.Value(0)).current;
+  const AnimPaddingValue = useRef(new Animated.Value(0)).current;
+  const AnimMarginTopValue = useRef(new Animated.Value(0)).current;
 
   const login = () => {
     if (!name.trim()) {
@@ -27,8 +28,14 @@ export default function Login() {
   };
 
   useEffect(() => {
-    Animated.timing(AnimValue, {
+    Animated.timing(AnimPaddingValue, {
       toValue: 13,
+      duration: 400,
+      useNativeDriver: false,
+    }).start();
+
+    Animated.timing(AnimMarginTopValue, {
+      toValue: 20,
       duration: 400,
       useNativeDriver: false,
     }).start();
@@ -50,7 +57,8 @@ export default function Login() {
           style={[
             styles.buttonToServer,
             {
-              padding: AnimValue,
+              padding: AnimPaddingValue,
+              marginTop: AnimMarginTopValue,
             },
           ]}>
           Log in
