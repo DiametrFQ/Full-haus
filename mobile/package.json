@@ -5,6 +5,7 @@
   "scripts": {
     "android:dev": "react-native run-android",
     "android:build": "react-native build-android --mode=release",
+    "doctor": "react-native doctor",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",

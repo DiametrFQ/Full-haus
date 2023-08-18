@@ -61,32 +61,9 @@ const SocketConnect = (socket: Socket) => {
       dispatch(setConnect(socket.connected));
     });
   });
-  //   while(!socket.connected){
-  //     socket.connect();
-  //   }
+  while (!socket.connected) {
+    socket.connect();
+  }
 };
-
-// async function newMessagePN(
-//     name: string,
-//     massage: string,
-// ) {
-//     await Notifications.scheduleNotificationAsync({
-//         content: {
-//             title: name,
-//             body: massage,
-//             data: { data: 'goes here' },
-//         },
-//         trigger: { seconds: 1 },
-
-//     });
-// }
-
-// Notifications.setNotificationHandler({
-//     handleNotification: async () => ({
-//         shouldShowAlert: true,
-//         shouldPlaySound: false,
-//         shouldSetBadge: false,
-//     }),
-// });
 
 export default SocketConnect;
