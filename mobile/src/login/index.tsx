@@ -6,12 +6,13 @@ import {useNavigate} from 'react-router-native';
 // import { useFonts } from 'expo-font';
 import styles from './style';
 import {setUserName} from '../store/reducers/accSetings';
-
+console.log('asd');
 export default function Login() {
+  console.log('asd');
   const [name, setName] = useState('');
   // const [loaded] = useFonts({
-  //     Montserrat: require('./assets/fonts/YatraOne.ttf'),
-  //   });
+  //   Montserrat: require('./assets/fonts/YatraOne.ttf'),
+  // });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,7 +34,6 @@ export default function Login() {
       duration: 400,
       useNativeDriver: false,
     }).start();
-
     Animated.timing(AnimMarginTopValue, {
       toValue: 20,
       duration: 400,

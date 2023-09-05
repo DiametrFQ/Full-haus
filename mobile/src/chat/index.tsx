@@ -1,13 +1,11 @@
-import style from './style';
 import {useState} from 'react';
 import {TextInput, Pressable, View, Text, SafeAreaView} from 'react-native';
-import {io} from 'socket.io-client';
 import {useDispatch, useSelector} from 'react-redux';
+import {io} from 'socket.io-client';
 import IMsgs from '../Interfaces/IMsgs';
 import {RootState, addMsg} from '../store/reducers/msgSlice';
+import style from './style';
 import ChatScroll from './ChatScroll';
-// import { SafeAreaView } from 'react-native-safe-area-context';
-// import { useEffect } from 'react'
 
 const socket = io('https://test-whmf.onrender.com/', {
   autoConnect: true,

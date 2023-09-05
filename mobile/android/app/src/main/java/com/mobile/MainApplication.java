@@ -1,4 +1,4 @@
-package com.awesomeproject23;
+package com.mobile;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

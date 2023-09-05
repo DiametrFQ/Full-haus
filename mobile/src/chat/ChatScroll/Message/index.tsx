@@ -1,7 +1,7 @@
 // import MessageStyles from './style';
 import {Text} from 'react-native';
-import IMsgs from '../../../Interfaces/IMsgs';
 import {useSelector} from 'react-redux';
+import IMsgs from '../../../Interfaces/IMsgs';
 import {RootState} from '../../../store/reducers/accSetings';
 
 export default function Message({user}: {user: IMsgs}) {

@@ -1,8 +1,8 @@
-import style from './style';
 import {Text, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
-import IMsgs from '../../Interfaces/IMsgs';
+import style from './style';
 import Message from './Message';
+import IMsgs from '../../Interfaces/IMsgs';
 import {RootState} from '../../store/reducers/msgSlice';
 
 export default function ChatScroll() {
