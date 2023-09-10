@@ -13,9 +13,7 @@ import { ChatCreateDto } from './dto/chatCreate.dto';
 
 @WebSocketGateway()
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
-  constructor(
-    private chatService: ChatService, // private readonly userService: UserService, // private readonly friendService: FriendService, // private readonly chatService: ChatService,
-  ) {}
+  constructor(private chatService: ChatService) {}
 
   @WebSocketServer()
   server: Server;
@@ -28,11 +26,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   handleDisconnect(socket) {
     console.log('Bye', socket.id, '!');
-  }
-
-  @SubscribeMessage('test')
-  handleEvent() {
-    console.log('test is worked!');
   }
 
   @SubscribeMessage('get messages')
