@@ -17,7 +17,11 @@ export class UserGateway {
 
   @SubscribeMessage('createUser')
   async createUser(@MessageBody() userDto: CreateUserDto) {
-    const user = await this.userService.create(userDto);
-    this.server.emit('take client user', user);
+    try {
+      const user = await this.userService.create(userDto);
+      this.server.emit('take client user', user);
+    } catch (error) {
+      this.server.emit('take client ErrorUser', error);
+    }
   }
 }

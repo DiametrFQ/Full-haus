@@ -14,7 +14,7 @@ export class UserService {
   async create(CreateUserDto: CreateUserDto) {
     const existUser = await this.findOneByPhone(CreateUserDto.phoneNumber);
 
-    if (existUser) throw new BadRequestException('Email is exists');
+    if (existUser) throw new BadRequestException('Phone is exists');
 
     try {
       const client = await this.userRep.save({

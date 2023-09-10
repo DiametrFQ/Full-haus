@@ -17,8 +17,12 @@ export class AuthGateway {
 
   @SubscribeMessage('authenticate')
   async authenticateEvent(@MessageBody() authData: AuthUserDto) {
-    const info = authData.getInfo();
-    const client = await this.authServ.signIn(...info);
-    this.server.emit('authentication passed', client);
+    const info: [string, string] = [authData.phoneNumber, authData.password];
+    try {
+      const client = await this.authServ.signIn(...info);
+      this.server.emit('authentication passed', client);
+    } catch (error) {
+      this.server.emit('authentication not passed', error);
+    }
   }
 }

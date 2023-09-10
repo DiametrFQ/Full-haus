@@ -20,10 +20,14 @@ export class FriendGateway {
     @MessageBody() createFriendDtoOutOf: createFriendDtoOutOf,
   ) {
     //@Body() CreateUserDto: CreateUserDto
-    await this.friendService.createFriendOutOf(createFriendDtoOutOf);
-    const friends = this.friendService.findAllFriends(
-      createFriendDtoOutOf.idClient,
-    );
-    this.server.emit('take client friends', friends);
+    try {
+      await this.friendService.createFriendOutOf(createFriendDtoOutOf);
+      const friends = this.friendService.findAllFriends(
+        createFriendDtoOutOf.idClient,
+      );
+      this.server.emit('take client friends', friends);
+    } catch (error) {
+      this.server.emit('take client errorFriends', error);
+    }
   }
 }
