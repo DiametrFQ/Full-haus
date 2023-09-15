@@ -61,9 +61,9 @@ const SocketConnect = (socket: Socket) => {
       dispatch(setConnect(socket.connected));
     });
   });
-  while (!socket.connected) {
-    socket.connect();
-  }
+  // while (!socket.connected) {
+  //   socket.connect();
+  // }
 };
 
 export default SocketConnect;
