@@ -3,13 +3,12 @@ package fullhouse.mobileKotlin
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonArray
-import com.google.gson.JsonElement
+
 data class DCMsgs (
     var user: String,
     var msg:  String,
     var userid: String,
 )
-
 class GoodParser {
     val gson = Gson()
 

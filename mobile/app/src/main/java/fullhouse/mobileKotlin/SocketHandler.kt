@@ -31,6 +31,7 @@ object SocketHandler{
             val jsonElement = JsonParser.parseString(jsonArrString)
             val jsonArray: JsonArray = jsonElement.asJsonArray
             SM.ArrMsgs = GP.parserJSONArray(jsonArray)
+            Log.d("azaza", "listenWork")
         }
     }
 
