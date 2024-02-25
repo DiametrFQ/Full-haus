@@ -3,6 +3,7 @@ package fullhouse.mobileKotlin
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.JsonArray
+import com.google.gson.JsonElement
 
 data class DCMsgs (
     var user: String,
@@ -16,11 +17,13 @@ class GoodParser {
         var ArrMsgs: Array<DCMsgs> = arrayOf()
 
         for (jsonEl in jsonArray) {
-            Log.d("azaza", "JSON Element")
-            Log.d("azaza", jsonEl.toString())
             ArrMsgs += gson.fromJson(jsonEl, DCMsgs::class.java)
         }
         Log.d("azaza", ArrMsgs.size.toString())
         return ArrMsgs
+    }
+
+    fun parserJSON(jsonEl: JsonElement): DCMsgs {
+        return gson.fromJson(jsonEl, DCMsgs::class.java)
     }
 }

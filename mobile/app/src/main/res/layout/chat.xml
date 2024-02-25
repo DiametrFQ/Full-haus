@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/pushMsg"
         android:layout_width="92dp"
         android:layout_height="49dp"
         android:text="Button"
@@ -14,51 +14,40 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/editMsg"
         android:layout_width="319dp"
         android:layout_height="50dp"
         android:ems="10"
         android:inputType="text"
         android:text="Name"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+    <!--        app:layout_constraintEnd_toStartOf="@+id/button2"-->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="680dp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextText"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="Enter How Much Cookies You Want"
         app:layout_constraintTop_toTopOf="parent">
+    <!--        app:layout_constraintBottom_toTopOf="@+id/editTextText"-->
 
         <LinearLayout
+            android:id="@+id/msg_layout"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:textAlignment="textEnd">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="34dp"
-                android:text="asdasd">
+                android:layout_height="161dp"
+                android:text="asdasd"
+                >
 
             </TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="asdasd">
-
-            </TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="asdasd">
-
-            </TextView>
-
+            <!-- Messages here -->
 
         </LinearLayout>
 
