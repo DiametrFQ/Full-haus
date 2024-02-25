@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/pushMsg"
+        android:layout_width="92dp"
+        android:layout_height="49dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/editMsg"
+        android:layout_width="319dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:inputType="text"
+        android:text="Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+    <!--        app:layout_constraintEnd_toStartOf="@+id/button2"-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="680dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="Enter How Much Cookies You Want"
+        app:layout_constraintTop_toTopOf="parent">
+    <!--        app:layout_constraintBottom_toTopOf="@+id/editTextText"-->
+
+        <LinearLayout
+            android:id="@+id/msg_layout"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:orientation="vertical"
+            android:textAlignment="textEnd">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="161dp"
+                android:text="asdasd"
+                >
+
+            </TextView>
+            <!-- Messages here -->
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
