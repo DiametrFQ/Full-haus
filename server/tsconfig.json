@@ -16,10 +16,6 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "moduleResolution": "node",
-    "paths": {
-      "@entities/*": ["./src/database/entities/*"]
-    }
+    "noFallthroughCasesInSwitch": false
   }
 }
